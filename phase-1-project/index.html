@@ -10,8 +10,24 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <select name="drinkName" id="drinkNameSelection">
-                
+                <option>Select Name</option>
             </select>
+            <select name="ingridient" id="ingridientSelection">
+                <option>Select Ingridient</option>
+            </select>
+            <select name="alcoholic" id="typeSelection">
+                <option selected="selected">
+                    Type
+                </option>
+                <option value="Shot">Shot</option>
+                <option value="Ordinary Drink">Long Drink</option>
+            </select>
+            <select name="alcoholic" id="alcoholicSelection">
+                <option>Havin Fun Tonight?</option>
+                <option value="Alcoholic">Alcoholic</option>
+                <option value="Optional alcohol">It's up to you</option>
+            </select>
+            <button id="reset"><label>RESET</label></button>
         </div>
     </nav>
     <div class="row d-flex justify-content-center" id="displayContainer">
