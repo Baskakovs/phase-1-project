@@ -161,9 +161,9 @@ function apply(object){
 
     removinChildren("noDisplayContainer2")
     removinChildren("displayContainer")
-    fetching()
+    fetching(filterDisplay)
    
-    function filterDisplay(){}
+    function filterDisplay(object){
     const drinks = object['drinks']
     for(let drink of drinks){
         if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
@@ -172,7 +172,6 @@ function apply(object){
         )&& drink.strAlcoholic == filterArray.alcohol && drink.strCategory == filterArray.type){
             titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
-            id.remove()
             creatingCoctailCard(drink, displayContainer2)
 
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
@@ -181,7 +180,6 @@ function apply(object){
         )&& null == filterArray.alcohol && filterArray.type == null){
             titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
-            id.remove()
             creatingCoctailCard(drink, displayContainer2)
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
@@ -189,7 +187,6 @@ function apply(object){
         )&& drink.strAlcoholic == filterArray.alcohol && filterArray.type == null){
             titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
-            id.remove()
             creatingCoctailCard(drink, displayContainer2)
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
@@ -197,10 +194,10 @@ function apply(object){
         )&& null == filterArray.alcohol && filterArray.type == drink.strCategory){
             titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
-            id.remove()
             creatingCoctailCard(drink, displayContainer2)
         }
     }
+}
 }
 const indexOfIngridient = Object.values(object)
 function reset(){
@@ -221,11 +218,3 @@ function removeChildren(container){
         }
     }
 }
-/*unction display(object){
-    object.map((coctail)=>{
-    const card = document.createElement('div').setAttribute('class','card')
-    displayContainer.append(card)
-    const title = document.createElement('div').setAttribute('class','card header')
-    title.textContent = coctail.strDrink
-    })   
-}*/
