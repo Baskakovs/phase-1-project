@@ -1,8 +1,10 @@
-fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s')
-.then((res)=>res.json())
-.then((object)=> display(object))
-.catch(console.log('failed to load the API'))
-
+function fetching(cb){
+    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s')
+    .then((res)=>res.json())
+    .then((object)=> cb(object))
+    .catch(console.log('failed to load the API'))
+}
+document.addEventListener("DOMContentLoaded",fetching(display))
 const displayContainer = document.getElementById("displayContainer")
 const displayContainer2 = document.getElementById("noDisplayContainer2")
 const drinkNameSelection = document.getElementById("drinkNameSelection")
@@ -10,6 +12,7 @@ const ingridientSelection = document.getElementById("ingridientSelection")
 const alcoholicSelection = document.getElementById("alcoholicSelection")
 const typeSelection = document.getElementById("typeSelection")
 const applyButton = document.getElementById("apply")
+const titleAlternative = document.getElementById("titleAlternative")
 
 const inridientsObj = {}
 
@@ -146,14 +149,28 @@ function filterByType(e){
     filterArray['type'] = e.target.value
 }
 
+function removinChildren(containerId){
+    let displayContainer = document.getElementById(containerId);
+    console.log(displayContainer)
+    while (displayContainer.firstChild) {
+        displayContainer.removeChild(displayContainer.firstChild);
+    }
+}
+
 function apply(object){
+
+    removinChildren("noDisplayContainer2")
+    removinChildren("displayContainer")
+    fetching()
+   
+    function filterDisplay(){}
     const drinks = object['drinks']
     for(let drink of drinks){
         if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& drink.strAlcoholic == filterArray.alcohol && drink.strCategory == filterArray.type){
-
+            titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
             id.remove()
             creatingCoctailCard(drink, displayContainer2)
@@ -162,6 +179,7 @@ function apply(object){
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& null == filterArray.alcohol && filterArray.type == null){
+            titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
             id.remove()
             creatingCoctailCard(drink, displayContainer2)
@@ -169,6 +187,7 @@ function apply(object){
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& drink.strAlcoholic == filterArray.alcohol && filterArray.type == null){
+            titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
             id.remove()
             creatingCoctailCard(drink, displayContainer2)
@@ -176,6 +195,7 @@ function apply(object){
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& null == filterArray.alcohol && filterArray.type == drink.strCategory){
+            titleAlternative.style = ''
             const id = document.getElementById(`${drink.strDrink}`)
             id.remove()
             creatingCoctailCard(drink, displayContainer2)
@@ -192,6 +212,15 @@ function reset(){
     })
 }
 
+
+function removeChildren(container){
+    let children = container.children
+    if(children.length > 0){
+        for(let child of children){
+            child.remove()
+        }
+    }
+}
 /*unction display(object){
     object.map((coctail)=>{
     const card = document.createElement('div').setAttribute('class','card')
