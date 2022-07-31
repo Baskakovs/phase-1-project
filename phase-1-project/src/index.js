@@ -1,20 +1,38 @@
+document.addEventListener("DOMContentLoaded",fetching(display))
+
+//HTML ELEMENTS
+const displayContainer = document.getElementById("displayContainer")
+const displayContainer2 = document.getElementById("noDisplayContainer2")
+const ingridientSelection = document.getElementById("ingridientSelection")
+const alcoholicSelection = document.getElementById("alcoholicSelection")
+const typeSelection = document.getElementById("typeSelection")
+const applyButton = document.getElementById("apply")
+const resetButton = document.getElementById("reset")
+const titleAlternative = document.getElementById("titleAlternative")
+const createContainer = document.getElementById("createContainer")
+
+//OBJECTS
+const inridientsObj = {}
+const filterArray = {}
+
+//FUNCTIONS
+
 function fetching(cb){
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s')
     .then((res)=>res.json())
     .then((object)=> cb(object))
     .catch(console.log('failed to load the API'))
 }
-document.addEventListener("DOMContentLoaded",fetching(display))
-const displayContainer = document.getElementById("displayContainer")
-const displayContainer2 = document.getElementById("noDisplayContainer2")
-const drinkNameSelection = document.getElementById("drinkNameSelection")
-const ingridientSelection = document.getElementById("ingridientSelection")
-const alcoholicSelection = document.getElementById("alcoholicSelection")
-const typeSelection = document.getElementById("typeSelection")
-const applyButton = document.getElementById("apply")
-const titleAlternative = document.getElementById("titleAlternative")
 
-const inridientsObj = {}
+function filterByName(e){
+    for(let coctailCard of displayContainer.childNodes){
+        if(coctailCard.id != e.target.value){
+            coctailCard.style = 'display: none'
+        }else if(coctailCard.id == e.target.value){
+            coctailCard.style = 'display: block'
+        }
+    }
+}
 
 function display(object){
     console.log(object)
@@ -23,24 +41,22 @@ function display(object){
         
         creatingCoctailCard(coctail,displayContainer)
 
-        //APPENDING THE SELECTORS
-
         //names
-        const drinkNameOption = document.createElement('option')
-        drinkNameSelection.append(drinkNameOption)
-        drinkNameOption.textContent = coctail.strDrink
-        drinkNameOption.setAttribute('value', coctail.strDrink)
+       
 
         //inridients
         inridientsObj[`${coctail.strIngredient1}`] = true
     }
     appendIngridientOptions()
-    drinkNameSelection.addEventListener("change", (e)=>filterByName(e))
+
+    //EVENT LISTENERS
     ingridientSelection.addEventListener("change", (e)=>filterByIngridient(e))
     alcoholicSelection.addEventListener("change",(e)=>filterByAlcohol(e))
     typeSelection.addEventListener("change",(e)=>filterByType(e))
     applyButton.addEventListener("click",()=>apply(object))
+    resetButton.addEventListener("click",()=>reset())
 }
+
 function appendIngridientOptions(){
     const inridientsObjArray = Object.keys(inridientsObj)
     inridientsObjArray.map((ingridientName)=>{
@@ -49,9 +65,6 @@ function appendIngridientOptions(){
         ingridientOption.textContent = ingridientName
 })
 }
-
-let filterArray = {}
-let searchArray = {}
 
 function filterByName(e){
     for(let coctailCard of displayContainer.childNodes){
@@ -68,28 +81,31 @@ function creatingCoctailCard(coctail, area){
         card.setAttribute('id', `${coctail.strDrink}`)
         card.setAttribute('style', ``)
         area.append(card)
-        card.setAttribute('class', 'card col-lg-3 col-12')
+        card.setAttribute('class', 'card col-lg-3 col-md-4 col--12 m-3')
         const header = document.createElement('div')
         card.append(header)
         header.setAttribute('class','card-header')
         const title = document.createElement('h3')
         header.append(title)
-        title.setAttribute('class','text-center')
+        title.setAttribute('class','text-center mt-2')
         title.textContent = coctail.strDrink
         const body = document.createElement('div')
         card.append(body)
         body.setAttribute('class','card-body')
         const image = document.createElement('img')
         body.append(image)
-        image.setAttribute('style','width: 100px; height: 50 px')
+        image.setAttribute('class','img-on-card')
+        
         image.setAttribute('src',coctail.strDrinkThumb)
         const ingridientsTitle = document.createElement('h5')
         body.append(ingridientsTitle)
+        ingridientsTitle.setAttribute('class','mt-3 fst-italic fw-light text-muted')
         ingridientsTitle.textContent = "INGRIDIENTS"
         const ul = document.createElement('ul')
         body.append(ul)
         const ingridient1 = document.createElement('li')
         ul.append(ingridient1)
+        ul.setAttribute('class','text-muted fst-italic')
         ingridient1.setAttribute('id',coctail.strIngredient1)
         ingridient1.textContent = coctail.strIngredient1
 
@@ -99,9 +115,11 @@ function creatingCoctailCard(coctail, area){
         ingridient2.textContent = coctail.strIngredient2
 
         const ingridient3 = document.createElement('li')
-        ul.append(ingridient3)
-        ingridient3.setAttribute('id',coctail.strIngredient3)
-        ingridient3.textContent = coctail.strIngredient3
+        if(coctail.strIngredient3  != null){
+            ul.append(ingridient3)
+            ingridient3.setAttribute('id',coctail.strIngredient3)
+            ingridient3.textContent = coctail.strIngredient3
+        }
 
         const ingridient4 = document.createElement('li')
         if(coctail.strIngredient4  != null){
@@ -123,18 +141,6 @@ function creatingCoctailCard(coctail, area){
             ingridient6.textContent = coctail.strIngredient6
         }
 }
-
-/*function filterByIngridient(object, e){
-   const entries =  Object.entries(object['drinks'])
-   for(entry of entries){
-    if(Object.values(entry[1]).indexOf(e.target.value) == -1){
-        document.getElementById(entry[1].strDrink).remove
-    }else if(Object.values(entry[1]).indexOf(e.target.value) != -1){
-       const coctailCard = document.getElementById(entry[1].strDrink)
-       displayContainer.append(coctailCard)
-    }
-   }
-}*/
 
 function filterByIngridient(e){
     filterArray['ingridient'] = e.target.value
@@ -158,57 +164,48 @@ function removinChildren(containerId){
 }
 
 function apply(object){
-
     removinChildren("noDisplayContainer2")
     removinChildren("displayContainer")
     fetching(filterDisplay)
-   
-    function filterDisplay(object){
+}
+
+function reset(){
+    document.location.reload(true)
+}
+
+function filterDisplay(object){
     const drinks = object['drinks']
     for(let drink of drinks){
         if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& drink.strAlcoholic == filterArray.alcohol && drink.strCategory == filterArray.type){
-            titleAlternative.style = ''
-            const id = document.getElementById(`${drink.strDrink}`)
             creatingCoctailCard(drink, displayContainer2)
 
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& null == filterArray.alcohol && filterArray.type == null){
-            titleAlternative.style = ''
-            const id = document.getElementById(`${drink.strDrink}`)
             creatingCoctailCard(drink, displayContainer2)
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& drink.strAlcoholic == filterArray.alcohol && filterArray.type == null){
-            titleAlternative.style = ''
-            const id = document.getElementById(`${drink.strDrink}`)
             creatingCoctailCard(drink, displayContainer2)
         }else if((drink.strIngredient1 == filterArray.ingridient || drink.strIngredient2 == filterArray.ingridient 
             || drink.strIngredient3 == filterArray.ingridient || drink.strIngredient4 == filterArray.ingridient 
             || drink.strIngredient5 == filterArray.ingridient || drink.strIngredient6 == filterArray.ingridient
         )&& null == filterArray.alcohol && filterArray.type == drink.strCategory){
-            titleAlternative.style = ''
-            const id = document.getElementById(`${drink.strDrink}`)
             creatingCoctailCard(drink, displayContainer2)
         }
     }
+    if(displayContainer2.childElementCount == 0){
+        const noDrinkMessage = document.createElement('div')
+        displayContainer.append(noDrinkMessage)
+        noDrinkMessage.textContent = 'Unfortunantely, there is no drink that fits your description :('
+        noDrinkMessage.setAttribute('class','text-center display-5 mt-5 text-muted')
+    }
 }
-}
-const indexOfIngridient = Object.values(object)
-function reset(){
-    const divs = document.querySelectorAll('.card')
-    const arr = Array.prototype.slice.call(divs)
-    console.log(arr)    
-    let res = arr.map((coctailCards)=>{
-        coctailCards.style = ''
-    })
-}
-
 
 function removeChildren(container){
     let children = container.children

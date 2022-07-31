@@ -3332,6 +3332,7 @@
     background-color: #ffa900;
     border-color: #ffa900;
   }
+
   
   .btn-warning:hover {
     color: #000;
@@ -22849,6 +22850,9 @@
   }
 
   /*OWN CODE*/
+  body{
+    background-color: #fff0f8;
+  }
   #tab-content-background{
     min-height: 800px;
   }
@@ -22916,5 +22920,11 @@
   }
   .img-on-card{
     object-fit: cover;
+    width:100%;
     height: 330px
+  }
+  .btn-apply-reset {
+    color: #fff;
+    background-color: #B396A5;
+    border-color: #B396A5;
   }
