@@ -100,7 +100,7 @@ function creatingCoctailCard(coctail, area){
         const ingridientsTitle = document.createElement('h5')
         body.append(ingridientsTitle)
         ingridientsTitle.setAttribute('class','mt-3 fst-italic fw-light text-muted')
-        ingridientsTitle.textContent = "INGRIDIENTS"
+        ingridientsTitle.textContent = "INGREDIENTS"
         const ul = document.createElement('ul')
         body.append(ul)
         const ingridient1 = document.createElement('li')
@@ -202,7 +202,7 @@ function filterDisplay(object){
     if(displayContainer2.childElementCount == 0){
         const noDrinkMessage = document.createElement('div')
         displayContainer.append(noDrinkMessage)
-        noDrinkMessage.textContent = 'Unfortunantely, there is no drink that fits your description :('
+        noDrinkMessage.textContent = 'Unfortunately, no drink fits your description :('
         noDrinkMessage.setAttribute('class','text-center display-5 mt-5 text-muted')
     }
 }
