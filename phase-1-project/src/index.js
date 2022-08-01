@@ -24,27 +24,11 @@ function fetching(cb){
     .catch(console.log('failed to load the API'))
 }
 
-function filterByName(e){
-    for(let coctailCard of displayContainer.childNodes){
-        if(coctailCard.id != e.target.value){
-            coctailCard.style = 'display: none'
-        }else if(coctailCard.id == e.target.value){
-            coctailCard.style = 'display: block'
-        }
-    }
-}
-
 function display(object){
     console.log(object)
     const array = object['drinks']
     for(let coctail of array){
-        
         creatingCoctailCard(coctail,displayContainer)
-
-        //names
-       
-
-        //inridients
         inridientsObj[`${coctail.strIngredient1}`] = true
     }
     appendIngridientOptions()
@@ -64,16 +48,6 @@ function appendIngridientOptions(){
         ingridientSelection.append(ingridientOption)
         ingridientOption.textContent = ingridientName
 })
-}
-
-function filterByName(e){
-    for(let coctailCard of displayContainer.childNodes){
-        if(coctailCard.id != e.target.value){
-            coctailCard.style = 'display: none'
-        }else if(coctailCard.id == e.target.value){
-            coctailCard.style = 'display: block'
-        }
-    }
 }
 
 function creatingCoctailCard(coctail, area){
