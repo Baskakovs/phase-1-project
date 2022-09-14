@@ -6,10 +6,14 @@ ABOUT
 -----
 
 This app is a simple solution to quickly finding cocktails and their ingredients based on their type (long-drink or shot), one
-ingredient and alcoholic content. As a user, you can apply any filter you want and press *Apply* to filter for the 
-desired cocktail. The *Reset* button enables the user to reset the filter options so that all cocktails are viewable on the page.
+ingredient and their alcoholic content. As a user, you can apply any filter you want and press *APPLY* to filter for the 
+desired cocktail. The *RESET* button enables the user to reset the filter options so that all cocktails are viewable on the page.
 
 ![Image](https://github.com/Baskakovs/phase-1-project/blob/main/phase-1-project/short-walk-through.gif)
+
+BLOG
+----
+[Link]https://medium.com/@pjotrbaskakov/creating-a-simple-navbar-filter-4462c3841f7b
 
 REFERENCES
 ----------

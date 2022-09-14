@@ -20,7 +20,10 @@ const filterArray = {}
 function fetching(cb){
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s')
     .then((res)=>res.json())
-    .then((object)=> cb(object))
+    .then((object)=> {
+        cb(object)
+    }
+        )
     .catch(console.log('failed to load the API'))
 }
 
