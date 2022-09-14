@@ -2,7 +2,7 @@ COCKTAIL INGRIDIENT FINDER
 =========================
 -------------------------
 
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text](./short-walk-through.gif)
 
 ABOUT
 -----
