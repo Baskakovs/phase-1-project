@@ -1,0 +1,42 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./src/mdb.pro.black.css">
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+        <div>
+            <select name="ingridient" id="ingridientSelection" class='selector mx-3'>
+                <option>Select Ingredient</option>
+            </select>
+            <select name="alcoholic" id="typeSelection" class='selector mx-3'>
+                <option selected="selected">
+                    Type
+                </option>
+                <option value="Shot">Shot</option>
+                <option value="Ordinary Drink">Long Drink</option>
+            </select>
+            <select name="alcoholic" id="alcoholicSelection" class='selector mx-3'>
+                <option selected="selected">Having Fun Tonight?</option>
+                <option value="Alcoholic">Alcoholic</option>
+                <option value="Optional alcohol">Optional Alcohol</option>
+            </select>
+            </div>
+            <div>
+                <button id="apply" class="btn btn-apply-reset"><label>APPLY</label></button>
+                <button id="reset" class="btn btn-apply-reset"><label>RESET</label></button>
+            </div>
+        </div>
+    </nav>
+    
+    
+
+    <div class="row d-flex justify-content-center" id="noDisplayContainer2">
+     
+    </div>
+    <div class="row d-flex justify-content-center" id="displayContainer">
+   
+    </div>
+
+    <script src="./src/index.js"></script>
+</body>
