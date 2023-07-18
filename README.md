@@ -2,6 +2,8 @@ COCKTAIL INGRIDIENT FINDER
 =========================
 -------------------------
 
+![Alt Text](./short-walk-through.gif)
+
 ABOUT
 -----
 
